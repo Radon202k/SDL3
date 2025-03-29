@@ -4,10 +4,10 @@
 
 typedef struct
 {
-	char *basePath;
-	SDL_Window* window;
-	SDL_GPUDevice* device;
-	float deltaTime;
+    char *basePath;
+    SDL_Window* window;
+    SDL_GPUDevice* device;
+    float deltaTime;
     SDL_GPUGraphicsPipeline* pipeline;
 
 } Context;
@@ -16,14 +16,14 @@ SDL_GPUShader*
 shader_load(Context* context, char* shaderFilename, SDL_GPUShaderStage stage)
 {
     // Construct a full path with basePath and shaderFilename
-	char fullPath[512] = {0};
+    char fullPath[512] = {0};
     SDL_strlcat(fullPath, context->basePath, sizeof(fullPath));
     SDL_strlcat(fullPath, shaderFilename, sizeof(fullPath));
     
     // Load the SPIR-V "code" (these must have been compiled already)
-	size_t codeSize;
-	void* code = SDL_LoadFile(fullPath, &codeSize);
-	assert(code);
+    size_t codeSize;
+    void* code = SDL_LoadFile(fullPath, &codeSize);
+    assert(code);
     
     // Create the shader
     SDL_GPUShaderCreateInfo shaderInfo =
@@ -55,7 +55,7 @@ main(int argc, char **argv)
     
     // Init SDL
     assert(SDL_Init(SDL_INIT_VIDEO));
-	
+    
     // Get base path
     context.basePath = (char *)SDL_GetBasePath();
     assert(context.basePath);
@@ -74,14 +74,14 @@ main(int argc, char **argv)
     assert(SDL_ClaimWindowForGPUDevice(context.device, context.window));
     
     // Create the shaders
-	SDL_GPUShader* vertexShader = shader_load(&context, "shaders/vert.spv",
+    SDL_GPUShader* vertexShader = shader_load(&context, "shaders/vert.spv",
                                               SDL_GPU_SHADERSTAGE_VERTEX);
     
-	SDL_GPUShader* fragmentShader = shader_load(&context, "shaders/frag.spv",
+    SDL_GPUShader* fragmentShader = shader_load(&context, "shaders/frag.spv",
                                                 SDL_GPU_SHADERSTAGE_FRAGMENT);
-	
+    
     // Create the pipeline based on shaders
-	SDL_GPUTextureFormat textureFormat =
+    SDL_GPUTextureFormat textureFormat =
         SDL_GetGPUSwapchainTextureFormat(context.device, context.window);
     
     SDL_GPURasterizerState rasterState =
@@ -100,29 +100,29 @@ main(int argc, char **argv)
         .num_color_targets = SDL_arraysize(colorTargetDescArray),
     };
     
-	SDL_GPUGraphicsPipelineCreateInfo pipelineCreateInfo =
+    SDL_GPUGraphicsPipelineCreateInfo pipelineCreateInfo =
     {
-		.vertex_shader = vertexShader,
-		.fragment_shader = fragmentShader,
-		.primitive_type = SDL_GPU_PRIMITIVETYPE_TRIANGLELIST,
+        .vertex_shader = vertexShader,
+        .fragment_shader = fragmentShader,
+        .primitive_type = SDL_GPU_PRIMITIVETYPE_TRIANGLELIST,
         .rasterizer_state = rasterState,
         .target_info = targetInfo,
     };
     
-	context.pipeline = SDL_CreateGPUGraphicsPipeline(context.device,
+    context.pipeline = SDL_CreateGPUGraphicsPipeline(context.device,
                                                      &pipelineCreateInfo);
-	assert(context.pipeline);
-	
-	// Clean up shader resources
-	SDL_ReleaseGPUShader(context.device, vertexShader);
-	SDL_ReleaseGPUShader(context.device, fragmentShader);
+    assert(context.pipeline);
+    
+    // Clean up shader resources
+    SDL_ReleaseGPUShader(context.device, vertexShader);
+    SDL_ReleaseGPUShader(context.device, fragmentShader);
     
     // Update and render loop
     while (!quit)
     {
         // Poll events
         SDL_Event evt;
-		while (SDL_PollEvent(&evt))
+        while (SDL_PollEvent(&evt))
         {
             if (evt.type == SDL_EVENT_QUIT)
             {
@@ -205,8 +205,8 @@ main(int argc, char **argv)
     // Clean up resources, even though I think these are not needed anyway
     SDL_ReleaseGPUGraphicsPipeline(context.device, context.pipeline);
     SDL_ReleaseWindowFromGPUDevice(context.device, context.window);
-	SDL_DestroyWindow(context.window);
-	SDL_DestroyGPUDevice(context.device);
+    SDL_DestroyWindow(context.window);
+    SDL_DestroyGPUDevice(context.device);
     
     return 0;
 }
