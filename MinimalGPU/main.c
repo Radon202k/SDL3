@@ -9,7 +9,7 @@ typedef struct
 	SDL_GPUDevice* device;
 	float deltaTime;
     SDL_GPUGraphicsPipeline* pipeline;
-    
+
 } Context;
 
 SDL_GPUShader*
@@ -198,7 +198,7 @@ main(int argc, char **argv)
         else
         {
             // Window is minimized, sleep for a frame to avoid high CPU usage
-            SDL_Delay(1000.0f / 60);
+            SDL_Delay((Uint32)(1000.0f / 60));
         }
     }
     
