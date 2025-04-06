@@ -19,6 +19,7 @@ glslc shader.frag -o frag.spv
 ```
 
 Dependencies:
+- Vulkan sdk (needed to compile the shaders, also add vulkan sdk bin folder to the path)
 - Android sdk 36 (has to be at least version 35, but should use most recent version)
 - Java jdk 17 (important to be version 17, more recent versions will cause a build fail)
 
@@ -26,7 +27,7 @@ System variables:
 - ANDROID_HOME: android sdk path
 - JAVA_HOME: java jdk path
 
-To test the app in a device, first make sure you have all the dependencies installed and the system variables set (android sdk, java jdk, etc).
+To test the app in a device, first make sure you have all the dependencies installed and the system variables set.
 
 Also make sure your device is connected, and have USB debug enabled (use at least a USB 3.0 port).
 
