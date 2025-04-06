@@ -18,7 +18,15 @@ glslc shader.vert -o vert.spv
 glslc shader.frag -o frag.spv
 ```
 
-To test the app in a device, first make sure you have all the dependencies installed and the environment variables set (android sdk, java jdk, etc).
+Dependencies:
+  Android sdk 36 (has to be at least version 35, but should use most recent version)
+  Java jdk 17 (important to be version 17, more recent versions will cause a build fail)
+
+System variables:
+  ANDROID_HOME: android sdk path
+  JAVA_HOME: java jdk path
+
+To test the app in a device, first make sure you have all the dependencies installed and the system variables set (android sdk, java jdk, etc).
 
 Also make sure your device is connected, and have USB debug enabled (use at least a USB 3.0 port).
 
