@@ -3,7 +3,6 @@
 
 typedef struct
 {
-    char *basePath;
     SDL_Window* window;
     SDL_GPUDevice* device;
     float deltaTime;
@@ -257,16 +256,16 @@ void
 create_pipeline(Context *context)
 {
     // Create the shaders
-	SDL_GPUShader* vertexShader = shader_load(context,
+    SDL_GPUShader* vertexShader = shader_load(context,
                                               "vert.spv",
                                               SDL_GPU_SHADERSTAGE_VERTEX,
                                               0, 1);
     
-	SDL_GPUShader* fragmentShader = shader_load(context,
+    SDL_GPUShader* fragmentShader = shader_load(context,
                                                 "frag.spv",
                                                 SDL_GPU_SHADERSTAGE_FRAGMENT,
                                                 1, 0);
-	
+    
     SDL_GPURasterizerState rasterizerState = { SDL_GPU_FILLMODE_FILL };
     
     // The vertex buffers array
@@ -311,10 +310,10 @@ create_pipeline(Context *context)
     // The pipeline config
     SDL_GPUGraphicsPipelineCreateInfo pipelineCreateInfo =
     {
-		vertexShader,
-		fragmentShader,
+        vertexShader,
+        fragmentShader,
         vertexInputState,
-		SDL_GPU_PRIMITIVETYPE_TRIANGLELIST,
+        SDL_GPU_PRIMITIVETYPE_TRIANGLELIST,
         rasterizerState,
         multisampleState,
         depthStencilState,
